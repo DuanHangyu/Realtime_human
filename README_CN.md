@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="images/LOGO.png" alt="Realtime Human Logo" width="120">
+  <img src="images/LOGO.png" alt="Realtime Human Logo" width="200">
 
 # Realtime Human
 
