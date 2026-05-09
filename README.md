@@ -558,7 +558,7 @@ dotnet watch         # Watch for file changes
 
 ## Acknowledgments
 
-This project's digital human training pipeline (face keypoint extraction, 3D mesh generation, DINet reference feature extraction, and WebGL rendering) is built upon the work of [**DH_live**](https://github.com/kleinlee/DH_live) by [@kleinlee](https://github.com/kleinlee). DH_live is an outstanding open-source project that provides real-time 2D video-based digital human capabilities with extremely low computational requirements (39 Mflops per frame).
+Special thanks to [**DH_live**](https://github.com/kleinlee/DH_live) by [@kleinlee](https://github.com/kleinlee), an excellent open-source project for real-time 2D video-based digital humans.
 
 ## License
 

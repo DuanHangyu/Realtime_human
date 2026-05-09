@@ -560,7 +560,7 @@ dotnet watch         # 监听文件变化
 
 ## 致谢
 
-本项目的数字人训练管道（面部关键点提取、3D网格生成、DINet参考特征提取、WebGL渲染）基于 [@kleinlee](https://github.com/kleinlee) 的 [**DH_live**](https://github.com/kleinlee/DH_live) 项目开发。DH_live 是一个优秀的开源项目，提供了极低算力需求（每帧 39 Mflops）的实时 2D 视频数字人方案。
+特别感谢 [@kleinlee](https://github.com/kleinlee) 的 [**DH_live**](https://github.com/kleinlee/DH_live) 项目，这是一个优秀的实时 2D 视频数字人开源项目。
 
 ## 许可证
 
