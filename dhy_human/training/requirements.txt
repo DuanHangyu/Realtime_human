@@ -1,0 +1,11 @@
+torch
+torchvision
+tensorboard
+opencv-python
+numpy
+mediapipe
+scikit-learn
+tqdm
+scipy
+kaldi_native_fbank
+sounddevice

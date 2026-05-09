@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0e27"/>
+      <stop offset="50%" stop-color="#141b3d"/>
+      <stop offset="100%" stop-color="#0d1330"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="30%" cy="40%" r="40%">
+      <stop offset="0%" stop-color="#1a3a6b" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="75%" cy="60%" r="35%">
+      <stop offset="0%" stop-color="#0e4d6e" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="50%" cy="80%" r="30%">
+      <stop offset="0%" stop-color="#1a1a5e" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#glow1)"/>
+  <rect width="1920" height="1080" fill="url(#glow2)"/>
+  <rect width="1920" height="1080" fill="url(#glow3)"/>
+  <!-- Grid lines -->
+  <g stroke="#1e3a5f" stroke-opacity="0.08" stroke-width="1">
+    <line x1="0" y1="0" x2="1920" y2="1080"/>
+    <line x1="0" y1="1080" x2="1920" y2="0"/>
+    <line x1="960" y1="0" x2="960" y2="1080"/>
+    <line x1="0" y1="540" x2="1920" y2="540"/>
+  </g>
+  <!-- Decorative circles -->
+  <circle cx="300" cy="250" r="180" fill="none" stroke="#2a5a8a" stroke-opacity="0.06" stroke-width="2"/>
+  <circle cx="300" cy="250" r="120" fill="none" stroke="#2a5a8a" stroke-opacity="0.04" stroke-width="1.5"/>
+  <circle cx="1600" cy="800" r="220" fill="none" stroke="#1a4a7a" stroke-opacity="0.05" stroke-width="2"/>
+  <circle cx="1600" cy="800" r="140" fill="none" stroke="#1a4a7a" stroke-opacity="0.03" stroke-width="1.5"/>
+  <!-- Dots -->
+  <g fill="#4a8ab5" fill-opacity="0.15">
+    <circle cx="500" cy="700" r="3"/>
+    <circle cx="540" cy="720" r="2"/>
+    <circle cx="1400" cy="300" r="3"/>
+    <circle cx="1440" cy="280" r="2"/>
+    <circle cx="800" cy="150" r="2.5"/>
+    <circle cx="1100" cy="900" r="2.5"/>
+  </g>
+</svg>

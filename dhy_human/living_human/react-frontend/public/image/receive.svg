@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Green circle background -->
+  <circle cx="50" cy="50" r="48" fill="#22c55e"/>
+  <circle cx="50" cy="50" r="48" fill="url(#shine)" opacity="0.3"/>
+  <defs>
+    <radialGradient id="shine" cx="35%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Phone handset -->
+  <path d="M30 42c0 0 2-4 6-6 2-1 4-1 5 1l3 5c1 2 0 4-2 5l-2 1c0 0 2 8 8 14s14 8 14 8l1-2c1-2 3-3 5-2l5 3c2 1 2 3 1 5-2 4-6 6-6 6s-8 0-18-8S30 42 30 42z"
+        fill="white"/>
+</svg>

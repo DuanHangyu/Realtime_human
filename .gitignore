@@ -1,0 +1,44 @@
+## Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider
+.idea/
+
+## Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+## Node.js
+node_modules/
+
+## Configuration with secrets
+**/appsettings.json
+!**/appsettings.Example.json
+
+## OS files
+Thumbs.db
+.DS_Store
+
+## NuGet
+*.nupkg
+**/[Pp]ackages/*
+
+## Large training videos
+dhy_human/*.mp4
+
+## Training data output
+dhy_human/living_human/video_data/
+
+## gstack
+.gstack/

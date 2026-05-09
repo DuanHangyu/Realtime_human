@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "HumanVoice_Backstage": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

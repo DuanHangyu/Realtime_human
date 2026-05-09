@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <circle cx="64" cy="64" r="62" fill="#1e293b" stroke="#4a6cf7" stroke-width="2"/>
+  <circle cx="64" cy="48" r="20" fill="#94a3b8"/>
+  <ellipse cx="64" cy="100" rx="30" ry="24" fill="#94a3b8"/>
+  <text x="64" y="124" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#e2e8f0">默认角色</text>
+</svg>

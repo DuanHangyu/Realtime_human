@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字人角色训练系统</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #111827;
+  color: #e5e7eb;
+  min-height: 100vh;
+  padding: 0;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 32px;
+  color: #f9fafb;
+}
+
+/* Glass card */
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f9fafb;
+  margin-bottom: 16px;
+}
+
+/* Upload zone */
+.upload-zone {
+  border: 2px dashed rgba(74, 108, 247, 0.5);
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: rgba(74, 108, 247, 0.04);
+}
+
+.upload-zone:hover,
+.upload-zone.dragover {
+  border-color: #4a6cf7;
+  background: rgba(74, 108, 247, 0.1);
+}
+
+.upload-zone .icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.upload-zone .hint {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.upload-zone .filename {
+  color: #4a6cf7;
+  font-size: 14px;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* Form */
+.form-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.form-row label {
+  font-size: 14px;
+  color: #d1d5db;
+  white-space: nowrap;
+}
+
+.form-row input[type="text"] {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #f9fafb;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-row input[type="text"]:focus {
+  border-color: #4a6cf7;
+}
+
+.btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #4a6cf7;
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #3b5de7;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+.btn-danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+.btn-success {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.btn-success:hover {
+  background: rgba(34, 197, 94, 0.25);
+}
+
+.btn-deploy {
+  background: rgba(139, 92, 246, 0.15);
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.btn-deploy:hover {
+  background: rgba(139, 92, 246, 0.25);
+}
+
+/* Progress */
+.step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.step-icon {
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.step-name {
+  flex: 1;
+  color: #d1d5db;
+}
+
+.step-percent {
+  color: #9ca3af;
+  width: 40px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.step-item.active .step-name {
+  color: #f9fafb;
+}
+
+.step-item.active .step-percent {
+  color: #4a6cf7;
+}
+
+.step-item.done .step-name {
+  color: #22c55e;
+}
+
+.step-item.error .step-name {
+  color: #ef4444;
+}
+
+/* Total progress bar */
+.total-progress {
+  margin-top: 16px;
+}
+
+.total-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #9ca3af;
+}
+
+.progress-bar-bg {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4a6cf7, #6366f1);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+/* Task list */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.task-name {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.task-status {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.status-completed {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.status-running {
+  background: rgba(74, 108, 247, 0.15);
+  color: #4a6cf7;
+}
+
+.status-failed {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.status-pending {
+  background: rgba(156, 163, 175, 0.15);
+  color: #9ca3af;
+}
+
+.task-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.empty-hint {
+  text-align: center;
+  color: #6b7280;
+  font-size: 13px;
+  padding: 16px;
+}
+
+/* Error display */
+.error-msg {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #fca5a5;
+  font-size: 13px;
+  margin-top: 12px;
+  word-break: break-all;
+}
+
+/* Hidden file input */
+#file-input { display: none; }
+
+/* Message bar */
+.msg-bar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(34, 197, 94, 0.9);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.msg-bar.show {
+  opacity: 1;
+}
+
+.msg-bar.error {
+  background: rgba(239, 68, 68, 0.9);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>数字人角色训练系统</h1>
+
+  <!-- Upload card -->
+  <div class="card">
+    <div class="card-title">新建训练任务</div>
+
+    <div class="upload-zone" id="upload-zone">
+      <div class="icon">&#128249;</div>
+      <div class="hint">拖拽 .mp4 视频文件到此处<br>或点击选择文件</div>
+      <div class="filename" id="file-name"></div>
+    </div>
+    <input type="file" id="file-input" accept=".mp4,video/mp4">
+
+    <div class="form-row">
+      <label for="char-name">角色名称:</label>
+      <input type="text" id="char-name" placeholder="输入角色名称">
+      <button class="btn btn-primary" id="btn-start" disabled>开始训练</button>
+    </div>
+  </div>
+
+  <!-- Progress card -->
+  <div class="card" id="progress-card" style="display:none">
+    <div class="card-title">训练进度 <span id="progress-task-name" style="color:#4a6cf7;font-weight:400"></span></div>
+
+    <div class="step-list" id="step-list"></div>
+
+    <div class="total-progress">
+      <div class="total-progress-label">
+        <span>总进度</span>
+        <span id="total-percent">0%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="total-bar"></div>
+      </div>
+    </div>
+
+    <div class="error-msg" id="error-box" style="display:none"></div>
+  </div>
+
+  <!-- History card -->
+  <div class="card">
+    <div class="card-title">历史记录</div>
+    <div class="task-list" id="task-list">
+      <div class="empty-hint" id="empty-hint">暂无训练任务</div>
+    </div>
+  </div>
+</div>
+
+<!-- Message bar -->
+<div class="msg-bar" id="msg-bar"></div>
+
+<script>
+const TOTAL_STEPS = 6;
+const STEP_LABELS = [
+  '视频预处理',
+  '关键点平滑',
+  '嘴部裁剪计算',
+  '3D人脸模型生成',
+  '参考特征提取',
+  '打包输出',
+];
+
+// ---- DOM refs ----
+const uploadZone = document.getElementById('upload-zone');
+const fileInput = document.getElementById('file-input');
+const fileNameEl = document.getElementById('file-name');
+const charNameInput = document.getElementById('char-name');
+const btnStart = document.getElementById('btn-start');
+const progressCard = document.getElementById('progress-card');
+const progressTaskName = document.getElementById('progress-task-name');
+const stepListEl = document.getElementById('step-list');
+const totalPercentEl = document.getElementById('total-percent');
+const totalBar = document.getElementById('total-bar');
+const errorBox = document.getElementById('error-box');
+const taskListEl = document.getElementById('task-list');
+const emptyHint = document.getElementById('empty-hint');
+const msgBar = document.getElementById('msg-bar');
+
+let selectedFile = null;
+let currentEventSource = null;
+
+// ---- Upload zone ----
+uploadZone.addEventListener('click', () => fileInput.click());
+
+uploadZone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  uploadZone.classList.add('dragover');
+});
+
+uploadZone.addEventListener('dragleave', () => {
+  uploadZone.classList.remove('dragover');
+});
+
+uploadZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  uploadZone.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) handleFile(file);
+});
+
+fileInput.addEventListener('change', () => {
+  if (fileInput.files[0]) handleFile(fileInput.files[0]);
+});
+
+function handleFile(file) {
+  if (!file.name.toLowerCase().endsWith('.mp4')) {
+    showMsg('请选择 .mp4 视频文件', true);
+    return;
+  }
+  selectedFile = file;
+  fileNameEl.textContent = `${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB)`;
+  checkForm();
+}
+
+charNameInput.addEventListener('input', checkForm);
+
+function checkForm() {
+  btnStart.disabled = !(selectedFile && charNameInput.value.trim());
+}
+
+// ---- Start training ----
+btnStart.addEventListener('click', async () => {
+  if (!selectedFile || !charNameInput.value.trim()) return;
+
+  btnStart.disabled = true;
+  btnStart.textContent = '上传中...';
+
+  const formData = new FormData();
+  formData.append('video', selectedFile);
+  formData.append('name', charNameInput.value.trim());
+
+  try {
+    const resp = await fetch('/api/train', { method: 'POST', body: formData });
+    const data = await resp.json();
+
+    if (!resp.ok) {
+      showMsg(data.detail || '上传失败', true);
+      btnStart.disabled = false;
+      btnStart.textContent = '开始训练';
+      return;
+    }
+
+    showMsg('训练任务已创建');
+    // Reset form
+    selectedFile = null;
+    fileNameEl.textContent = '';
+    fileInput.value = '';
+    charNameInput.value = '';
+    btnStart.disabled = true;
+    btnStart.textContent = '开始训练';
+
+    // Start watching progress
+    watchProgress(data.task_id, data.name);
+    loadTasks();
+  } catch (e) {
+    showMsg('网络错误: ' + e.message, true);
+    btnStart.disabled = false;
+    btnStart.textContent = '开始训练';
+  }
+});
+
+// ---- Progress ----
+function watchProgress(taskId, taskName) {
+  if (currentEventSource) {
+    currentEventSource.close();
+  }
+
+  progressCard.style.display = '';
+  progressTaskName.textContent = `— ${taskName}`;
+  errorBox.style.display = 'none';
+  renderStepList();
+
+  const es = new EventSource(`/api/tasks/${taskId}/progress`);
+  currentEventSource = es;
+
+  // Track latest step info per step index
+  const stepState = {};
+
+  es.addEventListener('step', (e) => {
+    const d = JSON.parse(e.data);
+    stepState[d.step] = d;
+    renderStepList(stepState);
+  });
+
+  es.addEventListener('progress', (e) => {
+    const d = JSON.parse(e.data);
+    stepState[d.current_step] = {
+      step: d.current_step,
+      percent: d.step_percent,
+      message: d.step_message,
+    };
+    renderStepList(stepState);
+
+    // Total progress
+    const done = d.current_step + d.step_percent / 100;
+    const totalPct = Math.round(done / TOTAL_STEPS * 100);
+    totalPercentEl.textContent = totalPct + '%';
+    totalBar.style.width = totalPct + '%';
+  });
+
+  es.addEventListener('done', () => {
+    es.close();
+    currentEventSource = null;
+    loadTasks();
+  });
+
+  es.onerror = () => {
+    es.close();
+    currentEventSource = null;
+    loadTasks();
+  };
+}
+
+function renderStepList(stepState = {}) {
+  let html = '';
+  for (let i = 0; i < TOTAL_STEPS; i++) {
+    const s = stepState[i];
+    let icon = '<span style="color:#6b7280">&#9744;</span>';
+    let cls = '';
+
+    if (s && s.percent === 100) {
+      icon = '<span style="color:#22c55e">&#10004;</span>';
+      cls = 'done';
+    } else if (s && s.percent > 0) {
+      icon = '<span style="color:#4a6cf7">&#9642;</span>';
+      cls = 'active';
+    }
+
+    const pct = s ? s.percent + '%' : '';
+    const msg = (s && s.message) ? ` <span style="color:#6b7280;font-size:12px">${s.message}</span>` : '';
+
+    html += `<div class="step-item ${cls}">
+      <span class="step-icon">${icon}</span>
+      <span class="step-name">Step ${i + 1}/${TOTAL_STEPS}: ${STEP_LABELS[i]}${msg}</span>
+      <span class="step-percent">${pct}</span>
+    </div>`;
+  }
+  stepListEl.innerHTML = html;
+}
+
+// ---- Task list ----
+
+taskListEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-action]');
+  if (!btn) return;
+  const action = btn.dataset.action;
+  const taskId = btn.dataset.taskId;
+  if (action === 'download') downloadTask(taskId);
+  else if (action === 'delete') deleteTask(taskId);
+  else if (action === 'deploy') deployTask(taskId);
+  else if (action === 'watch') watchRunningTask(taskId, btn.dataset.taskName);
+});
+async function loadTasks() {
+  try {
+    const resp = await fetch('/api/tasks');
+    const tasks = await resp.json();
+
+    if (tasks.length === 0) {
+      taskListEl.innerHTML = '<div class="empty-hint">暂无训练任务</div>';
+      return;
+    }
+
+    let html = '';
+    for (const t of tasks) {
+      const statusLabel = {
+        pending: '等待中',
+        running: '训练中',
+        completed: '已完成',
+        failed: '失败',
+      }[t.status] || t.status;
+
+      const statusCls = 'status-' + t.status;
+      let actions = '';
+
+      if (t.status === 'completed') {
+        actions += `<button class="btn btn-sm btn-success" data-action="download" data-task-id="${escapeHtml(t.task_id)}">下载</button>`;
+        actions += `<button class="btn btn-sm btn-deploy" data-action="deploy" data-task-id="${escapeHtml(t.task_id)}">部署</button>`;
+      }
+      if (t.status !== 'running') {
+        actions += `<button class="btn btn-sm btn-danger" data-action="delete" data-task-id="${escapeHtml(t.task_id)}">删除</button>`;
+      }
+      if (t.status === 'running') {
+        actions += `<button class="btn btn-sm" style="background:rgba(74,108,247,0.15);color:#4a6cf7;border:1px solid rgba(74,108,247,0.3)" data-action="watch" data-task-id="${escapeHtml(t.task_id)}" data-task-name="${escapeHtml(t.name)}">查看进度</button>`;
+      }
+
+      html += `<div class="task-item">
+        <span class="task-name">${escapeHtml(t.name)}</span>
+        <span class="task-status ${statusCls}">${statusLabel}</span>
+        <span class="task-actions">${actions}</span>
+      </div>`;
+    }
+    taskListEl.innerHTML = html;
+  } catch (e) {
+    console.error('Failed to load tasks:', e);
+  }
+}
+
+async function downloadTask(taskId) {
+  try {
+    const resp = await fetch(`/api/download/${taskId}`);
+    if (!resp.ok) {
+      const data = await resp.json();
+      showMsg(data.detail || '下载失败', true);
+      return;
+    }
+    const blob = await resp.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'data';
+    a.click();
+    URL.revokeObjectURL(url);
+    showMsg('下载已开始');
+  } catch (e) {
+    showMsg('下载失败: ' + e.message, true);
+  }
+}
+
+async function deleteTask(taskId) {
+  if (!confirm('确认删除此任务及其文件？')) return;
+  try {
+    const resp = await fetch(`/api/tasks/${taskId}`, { method: 'DELETE' });
+    const data = await resp.json();
+    if (!resp.ok) {
+      showMsg(data.detail || '删除失败', true);
+      return;
+    }
+    showMsg('已删除');
+    loadTasks();
+  } catch (e) {
+    showMsg('删除失败: ' + e.message, true);
+  }
+}
+
+async function deployTask(taskId) {
+  try {
+    const resp = await fetch(`/api/deploy/${taskId}`, { method: 'POST' });
+    const data = await resp.json();
+    if (!resp.ok) {
+      showMsg(data.detail || '部署失败', true);
+      return;
+    }
+    showMsg(data.detail || '部署成功');
+  } catch (e) {
+    showMsg('部署失败: ' + e.message, true);
+  }
+}
+
+function watchRunningTask(taskId, taskName) {
+  watchProgress(taskId, taskName);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ---- Utilities ----
+function showMsg(text, isError = false) {
+  msgBar.textContent = text;
+  msgBar.className = 'msg-bar show' + (isError ? ' error' : '');
+  setTimeout(() => { msgBar.className = 'msg-bar'; }, 3000);
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ---- Init ----
+loadTasks();
+</script>
+</body>
+</html>
