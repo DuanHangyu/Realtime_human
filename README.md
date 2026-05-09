@@ -558,7 +558,7 @@ dotnet watch         # Watch for file changes
 
 ## Acknowledgments
 
-Special thanks to [**DH_live**](https://github.com/kleinlee/DH_live) by [@kleinlee](https://github.com/kleinlee), an excellent open-source project for real-time 2D video-based digital humans.
+Special thanks to [**DH_live**](https://github.com/kleinlee/DH_live) by [@kleinlee](https://github.com/kleinlee), an excellent open-source project for real-time 2D video-based digital humans. Parts of the character creation pipeline were inspired by and reference DH_live's approach to face keypoint processing and neural rendering.
 
 ## License
 

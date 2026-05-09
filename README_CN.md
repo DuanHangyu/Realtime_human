@@ -560,7 +560,7 @@ dotnet watch         # 监听文件变化
 
 ## 致谢
 
-特别感谢 [@kleinlee](https://github.com/kleinlee) 的 [**DH_live**](https://github.com/kleinlee/DH_live) 项目，这是一个优秀的实时 2D 视频数字人开源项目。
+特别感谢 [@kleinlee](https://github.com/kleinlee) 的 [**DH_live**](https://github.com/kleinlee/DH_live) 项目，这是一个优秀的实时 2D 视频数字人开源项目。本项目的角色制作管道在面部关键点处理和神经渲染部分参考了 DH_live 的思路。
 
 ## 许可证
 
