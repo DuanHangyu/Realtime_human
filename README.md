@@ -558,7 +558,16 @@ dotnet watch         # Watch for file changes
 
 ## Acknowledgments
 
-Special thanks to [**DH_live**](https://github.com/kleinlee/DH_live) by [@kleinlee](https://github.com/kleinlee), an excellent open-source project for real-time 2D video-based digital humans. Parts of the character creation pipeline were inspired by and reference DH_live's approach to face keypoint processing and neural rendering.
+Realtime Human would not be possible without these outstanding open-source projects:
+
+| Project | Role in Realtime Human |
+|---------|----------------------|
+| [**DH_live**](https://github.com/kleinlee/DH_live) by [@kleinlee](https://github.com/kleinlee) | Face keypoint processing and neural rendering approach |
+| [**MediaPipe**](https://github.com/google-ai-edge/mediapipe) by Google | Face mesh detection (478 landmarks) in character pipeline |
+| [**FunASR**](https://github.com/modelscope/FunASR) by Alibaba DAMO | Speech recognition engine |
+| [**FastAPI**](https://github.com/fastapi/fastapi) | Character creation server framework |
+| [**React**](https://github.com/facebook/react) by Meta | Frontend UI framework |
+| [**.NET**](https://github.com/dotnet) by Microsoft | Voice backend runtime |
 
 ## License
 

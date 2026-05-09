@@ -560,7 +560,16 @@ dotnet watch         # 监听文件变化
 
 ## 致谢
 
-特别感谢 [@kleinlee](https://github.com/kleinlee) 的 [**DH_live**](https://github.com/kleinlee/DH_live) 项目，这是一个优秀的实时 2D 视频数字人开源项目。本项目的角色制作管道在面部关键点处理和神经渲染部分参考了 DH_live 的思路。
+Realtime Human 的成功离不开众多杰出的开源项目：
+
+| 项目 | 在 Realtime Human 中的角色 |
+|------|--------------------------|
+| [**DH_live**](https://github.com/kleinlee/DH_live) by [@kleinlee](https://github.com/kleinlee) | 面部关键点处理与神经渲染思路参考 |
+| [**MediaPipe**](https://github.com/google-ai-edge/mediapipe) by Google | 角色管道中的人脸网格检测（478 个关键点） |
+| [**FunASR**](https://github.com/modelscope/FunASR) by 阿里达摩院 | 语音识别引擎 |
+| [**FastAPI**](https://github.com/fastapi/fastapi) | 角色制作服务器框架 |
+| [**React**](https://github.com/facebook/react) by Meta | 前端 UI 框架 |
+| [**.NET**](https://github.com/dotnet) by Microsoft | 语音后端运行时 |
 
 ## 许可证
 
